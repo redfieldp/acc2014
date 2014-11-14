@@ -1,14 +1,19 @@
+/**
+ * This is a static object that will create a mid-air platform in our system
+ */
 public class PlatformObject implements Box2DObject {
   Body body;
   int myWidth, myHeight;
   boolean destroyed = false;
   
+  // Create the platform
   public PlatformObject(int x, int y, int w) {
     myWidth = w;
     myHeight = 20;
     createBody(x, y);
   }
   
+  // Assemble the pieces for Box2D to use
   public void createBody(float xCoord, float yCoord) {
     // Make body
     BodyDef bodyDef = new BodyDef();
@@ -29,11 +34,13 @@ public class PlatformObject implements Box2DObject {
     body.createFixture(fixtureDef);
   }
   
+  // Not really necessary since these platforms never leave the screen
   public void destroyObject() {
     box2d.destroyBody(body);
     destroyed = true;
   }
   
+  // Draw the representation of the platform
   public void display() {
     Vec2 position = box2d.getBodyPixelCoord(body);
     float angle = body.getAngle();
