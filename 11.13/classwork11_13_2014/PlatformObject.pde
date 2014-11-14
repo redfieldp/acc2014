@@ -1,18 +1,18 @@
-public class SquareObject implements Box2DObject {
+public class PlatformObject implements Box2DObject {
   Body body;
   int myWidth, myHeight;
   boolean destroyed = false;
   
-  public SquareObject(int x, int y, int w, int h) {
+  public PlatformObject(int x, int y, int w) {
     myWidth = w;
-    myHeight = h;
+    myHeight = 20;
     createBody(x, y);
   }
   
   public void createBody(float xCoord, float yCoord) {
     // Make body
     BodyDef bodyDef = new BodyDef();
-    bodyDef.type = BodyType.DYNAMIC;
+    bodyDef.type = BodyType.STATIC;
     bodyDef.position.set(box2d.coordPixelsToWorld(xCoord, yCoord));
     body = box2d.createBody(bodyDef);
     
@@ -25,11 +25,8 @@ public class SquareObject implements Box2DObject {
     // Make fixture
     FixtureDef fixtureDef = new FixtureDef();
     fixtureDef.shape = shapeDef;
-
     
     body.createFixture(fixtureDef);
-    body.setLinearVelocity(new Vec2(random(-5,5), random(2,5)));
-    body.setAngularVelocity(random(-5,5));
   }
   
   public void destroyObject() {
@@ -48,7 +45,7 @@ public class SquareObject implements Box2DObject {
       pushMatrix();
       translate(position.x, position.y);
       rotate(-angle);
-      fill(128);
+      fill(0);
       stroke(0);
       rectMode(CENTER);
       rect(0,0,myWidth,myHeight);    

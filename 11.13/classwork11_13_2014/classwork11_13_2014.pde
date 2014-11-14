@@ -5,11 +5,16 @@ import org.jbox2d.dynamics.*;
 
 Box2DProcessing box2d;
 ArrayList<SquareObject> mySquares = new ArrayList<SquareObject>();
+ArrayList<PlatformObject> platforms = new ArrayList<PlatformObject>();
+
 
 void setup() {
   size(1024, 768);
   box2d = new Box2DProcessing(this);
   box2d.createWorld();
+  platforms.add(new PlatformObject(width/2, height/2, width/5));
+  platforms.add(new PlatformObject((width/5) * 2, 3 * (height/4), width/5));
+  platforms.add(new PlatformObject((width/5) * 4, 3 * (height/4), width/5));
 }
 
 void draw() {
@@ -25,6 +30,9 @@ void draw() {
     else{
       so.display();
     }
+  }
+  for (PlatformObject po : platforms) {
+    po.display();
   }
   
   for (SquareObject so : toDestroy) {
